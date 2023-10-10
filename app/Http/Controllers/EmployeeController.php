@@ -56,18 +56,16 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        $_employee =  Employee::find($employee->id);
+        $employee->fullname = $request->fullname;
+        $employee->email = $request->email;
+        $employee->phone = $request->phone;
+        $employee->position = $request->position;
+        $employee->age = $request->age;
+        $employee->salary = $request->salary;
+        $employee->active = $request->active;
+        $employee->hireDate = $request->hireDate;
 
-        $_employee->fullname = $request->fullname;
-        $_employee->email = $request->email;
-        $_employee->phone = $request->phone;
-        $_employee->position = $request->position;
-        $_employee->age = $request->age;
-        $_employee->salary = $request->salary;
-        $_employee->active = $request->active;
-        $_employee->hireDate = $request->hireDate;
-
-        $_employee->save();
+        $employee->save();
         return redirect('/employee');
     }
 
