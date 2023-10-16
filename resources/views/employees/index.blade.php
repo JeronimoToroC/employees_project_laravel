@@ -1,7 +1,7 @@
 @extends('layouts.template');
 
 @section('content')
-    <div class="container">
+    <div class="container mb-32">
         <h1>Employee List</h1>
         <a href="{{ route('employee.create') }}" class="btn btn-primary mb-3">Create Employee</a>
         <table class="table">
@@ -16,6 +16,7 @@
                     <th>Salary</th>
                     <th>Active</th>
                     <th>Hire Date</th>
+                    <th>Show</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -33,15 +34,27 @@
                         <td>{{ $employee->active ? 'Yes' : 'No' }}</td>
                         <td>{{ $employee->hireDate }}</td>
                         <td>
-                            <a href="{{ route('employee.edit', $employee) }}" class="btn btn-primary"><i
-                                    class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="{{ route('employee.show', $employee) }}" class="btn btn-secondary">
+                                <i class="fa-solid fa-user"></i>
+                            </a>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i
-                                    class="fa-solid fa-trash"></i></button>
+                            <a href="{{ route('employee.edit', $employee) }}" class="btn btn-primary">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <form action="{{ route('employee.destroy', $employee) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $employees->links() }}
     </div>
 @endsection
